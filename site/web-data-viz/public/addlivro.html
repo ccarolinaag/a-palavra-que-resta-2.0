@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a palavra que resta</title>
+
+    <link rel="icon" href="assets/icons/p.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/addlivro.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <ul class="lista-header">
+            <li>
+                <div class="list-content">
+                    <a href="dashboard.html">informações de leitura</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="livros.html">livros</a>
+                </div>
+            <li>
+                <div class="list-content">
+                    <a href="feed.html">feed</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="game.html">escrita livre</a>
+                </div>
+            </li>
+        </ul>
+        <div class="name-nav">
+            <a href="index.html">
+                <img src="assets/icons/sair.svg" alt="botão sair">
+            </a>
+            </nav>
+    </header>
+    <main>
+        <div></div>
+        <section class="cadastro-card">
+            <div class="linha-adicionar">
+                <h1>adicionar livro</h1>
+                <div class="forma-botao-deletar">
+                    <button onclick="adicionarLivro()">adicionar</button>
+                </div>
+            </div>
+            </div>
+            <div class="forma-input">
+                <div class="span-input">
+                    <span>nome</span>
+                    <input class="input-padrao" id="ipt_nome_livro">
+                </div>
+                <div class="span-input">
+                    <span>autor</span>
+                    <input class="input-padrao" id="ipt_autor">
+                </div>
+                <div class="span-input">
+                    <span>editora</span>
+                    <input class="input-padrao" id="ipt_editora">
+                </div>
+                <div class="span-input">
+                    <span>link da capa do livro</span>
+                    <input class="input-padrao" id="ipt_capa">
+                </div>
+                <div class="linha-3-inputs">
+                    <div class="input-menor">
+                        <span>data de ínicio</span>
+                        <input class="input-menor-forma" id="ipt_dt_inicio" type="date">
+                    </div>
+                    <div class="input-menor">
+                        <span>data de término</span>
+                        <input class="input-menor-forma" id="ipt_dt_termino" type="date">
+                    </div>
+                    <div class="input-menor">
+                        <span>número de páginas</span>
+                        <input class="input-menor-forma" id="ipt_paginas" type="number">
+                    </div>
+                </div>
+                <div class="span-input">
+                    <span>resenha</span>
+                    <textarea id="ipt_resenha"></textarea>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+    function adicionarLivro() {
+        var nomeLivroVar = ipt_nome_livro.value;
+        var autorVar = ipt_autor.value;
+        var editoraVar = ipt_editora.value;
+        var imagemVar = ipt_capa.value;
+        var dtInicioVar = ipt_dt_inicio.value;
+        var dtTerminoVar = ipt_dt_termino.value;
+        var numPaginasVar = Number(ipt_paginas.value);
+        var fkUsuarioVar = sessionStorage.ID_USUARIO;
+        var resenhaVar = ipt_resenha.value;
+
+        if (
+            nomeLivroVar == "" ||
+            autorVar == "" ||
+            editoraVar == "" ||
+            imagemVar == "" ||
+            dtInicioVar == "" ||
+            numPaginasVar == "" ||
+            dtTerminoVar == ""
+        ) {
+            alert("Favor preencher os campos de identificação de nome, autor, editora, e número de páginas")
+            return false;
+        }
+
+        if (dtTerminoVar == "") {
+            dtTerminoVar = dtInicioVar.setDate(dtInicioVar.getDate() + 30);
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/addlivro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                // passar as variveis dentro do json
+                nomeLivro_server: nomeLivroVar,
+                autor_server: autorVar,
+                nPaginas_server: numPaginasVar,
+                editora_server: editoraVar,
+                imagem_server: imagemVar,
+                resenha_server: resenhaVar,
+                dtInicio_server: dtInicioVar,
+                dtTermino_server: dtTerminoVar,
+                idUserServer: fkUsuarioVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Cadastro realizado com sucesso! Redirecionando para seus livros...")
+                    setTimeout(() => {
+                        window.location = "livros.html";
+                    }, "0");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro do livro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+</script>
+
+</html>

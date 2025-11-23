@@ -1,0 +1,132 @@
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 10%;
+    padding: 3% 7% 3%;
+}
+
+.cadastro-card {
+    width: 55%;
+}
+
+.linha-adicionar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2% 0%;
+}
+
+.linha-adicionar h1 {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+}
+
+.forma-botao-deletar button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #E5DB8D;
+    border-radius: 8px;
+    width: 85px;
+    border: none;
+    padding: 13px;
+
+    font-family: "Quicksand", sans-serif;
+    color: #226458;
+
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    height: 30px;
+}
+
+.container-add {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5% 9% 0%;
+}
+
+.span-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    display: flex;
+}
+
+.span-input span {
+    display: flex;
+    padding: 0% 3%;
+    font-size: 21px;
+    font-weight: 500;
+    margin: -6px;
+}
+
+.span-input input {
+    width: 93%;
+    padding: 1% 4%;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+    margin: 0% 0% 3% 0%;
+    height: 35px;
+}
+
+.input-padrao {
+    border-radius: 8px;
+    background-color: #F4E0BA;
+    outline: none;
+    box-shadow: 0px 3.33042px 3.33042px rgba(0, 0, 0, 0.25);
+}
+
+.linha-3-inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-menor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-menor-forma {
+    background-color: #F4E0BA;
+    height: 42px;
+    width: 70%;
+    margin: 0% 0% 7% 0%;
+    padding: 1% 12%;
+    border-radius: 12px;
+
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+
+    box-shadow: 0px 3.33042px 3.33042px rgba(0, 0, 0, 0.25);
+}
+
+.input-menor span {
+    display: flex;
+    padding: 0% 9%;
+    font-size: 21px;
+    font-weight: 500;
+    margin: -6px;
+    z-index: 1;
+}
+
+textarea {
+    all: unset;
+    display: flex;
+    background-color: #F4E0BA;
+    height: 10%;
+    border-radius: 12px;
+    height: 51vh;
+    padding: 3% 5%;
+
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+
+    box-shadow: 0px 3.33042px 3.33042px rgba(0, 0, 0, 0.25);
+}

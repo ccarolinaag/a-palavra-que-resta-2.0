@@ -1,0 +1,133 @@
+main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10vh;
+    height: 90vh;
+    gap: 2%;
+    justify-content: space-between;
+}
+
+
+.container1 {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.apresentacao {
+    display: flex;
+    height: 13%;
+}
+
+.apresentacao h3 {
+    font-size: 40px;
+    font-weight: 500;
+    font-family: "Quicksand", sans-serif;
+
+}
+
+.forma-grande {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F4E0BA;
+    border-radius: 18px;
+    width: 49%;
+    height: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.forma-grande p {
+    font-size: 50px;
+}
+
+.forma-grande h4 {
+    color: #4C7D6B;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+}
+
+.forma-pequena {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F4E0BA;
+    border-radius: 18px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 32%;
+}
+
+
+.forma-pequena h4 {
+    color: #4C7D6B;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+}
+
+.forma-pequena p {
+    font-size: 50px;
+}
+
+.forma-pequena h6 {
+    font-size: 17px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 430;
+}
+
+.linha1 {
+    display: flex;
+    height: 30%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.linha2 {
+    display: flex;
+    height: 30%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.linha3 {
+    display: flex;
+    height: 30%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 50%;
+    padding: 1.2% 1.2% 1.2% 1.2%;
+    background-color: #E5DB8D;
+    border-radius: 18px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.container2 .linha1 {
+    width: 100%;
+}
+
+.indicacao-ano {
+    height: 10%;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.grafico {
+    display: flex;
+    height: 62%;
+    width: 100%;
+    justify-content: center;
+}

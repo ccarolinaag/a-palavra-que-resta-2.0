@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a palavra que resta</title>
+
+    <link rel="icon" href="assets/icons/p.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/game.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <ul class="lista-header">
+            <li>
+                <div class="list-content">
+                    <a href="dashboard.html">informações de leitura</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="livros.html">livros</a>
+                </div>
+            <li>
+                <div class="list-content">
+                    <a href="feed.html">feed</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="game.html">escrita livre</a>
+                </div>
+            </li>
+        </ul>
+        <div class="name-nav">
+            <a href="index.html">
+                <img src="assets/icons/sair.svg" alt="botão sair">
+            </a>
+            </nav>
+    </header>
+    <main>
+        <div class="borda-container">
+            <div class="container">
+                <div class="apresentacao" id="tela1">
+                    <div class="coluna1">
+                        <div class="forma-titulo">
+                            <h1>Agora você vai criar um poema em lista!</h1>
+                        </div>
+                        <div class="forma-texto">
+                            <p>A literatura nos permite habitar outras vidas, revisitar memórias e inventar mundos.
+                                Agora é a sua vez de experimentar isso: Um poema em lista é um poema escrito no formato
+                                de uma lista. É um
+                                inventário de pessoas, lugares, coisas ou pensamentos. A lista pode ser escrita da
+                                maneira que
+                                você quiser: anotações, linhas longas, itens numerados ou não. Um poema em lista bem
+                                escrito conta uma história por meio dos itens que apresenta.</p>
+                        </div>
+                        <div class="forma-botao">
+                            <button onclick="comecar()">começar</button>
+                        </div>
+                    </div>
+                    <div class="coluna2">
+                        <div class="titulo-poema">
+                            <h3>Aqui vai um exemplo</h3>
+                            <h2>tarde é</h2>
+                        </div>
+                        <div class="forma-poema">
+                            <p>solidão</p>
+                            <p>céu laranja</p>
+                            <p>despedida</p>
+                            <p>beleza</p>
+                            <p>observar o tempo</p>
+                            <p>perceber que as coisas chegam ao fim </p>
+                            <p>esperar por dias melhores </p>
+                            <p>lembrar que um novo dia sempre vem </p>
+                            <p>ter tempo: para pensar, perdoar, curar, descansar</p>
+                            <p>sentar com amigos</p>
+                            <p>rir, abraçar, aplaudir</p>
+                            <p>ver pássaros cruzarem o céu</p>
+                            <p>assistir o sol se recolher</p>
+                            <p>sentir a brisa</p>
+                            <p>silêncio</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="instrucoes" style="display: none;" id="tela2">
+                    <div class="quadrado1">
+                        <div class="caixa-instrucao">
+                            <div class="forma-num">
+                                <h1>1</h1>
+                            </div>
+                            <p>Depois de enviar sua resenha, o sistema vai mergulhar nas palavras que você escreveu e
+                                puxar de lá uma palavra aleatória — pode ser uma personagem, um sentimento, um objeto,
+                                uma cor, uma ideia, qualquer fragmento que tenha escapado da sua escrita.</p>
+                        </div>
+                        <div class="caixa-instrucao">
+                            <div class="forma-num">
+                                <h1>2</h1>
+                            </div>
+                            <p>
+                                Assim que o jogo começar, você terá 1 minuto para escrever livremente tudo que essa
+                                palavra
+                                é para você. Não pense demais. Não edite. Não busque perfeição.</p>
+                        </div>
+                        <div class="linha3">
+                            <select class="select" id="select" onchange="selecionouLivro(this)">
+                            </select>
+                            <div class="forma-botao">
+                                <button onclick="sortear()">sortear palavra</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quadrado2">
+                        <div class="caixa-instrucao">
+                            <div class="forma-num">
+                                <h1>3</h1>
+                            </div>
+                            <p>Passado um minuto… surpresa! A mesma palavra volta, só que agora você vai fazer o
+                                contrário: explicar o que ela definitivamente NÃO é.</p>
+                        </div>
+                        <div class="caixa-instrucao">
+                            <div class="forma-num">
+                                <h1>4</h1>
+                            </div>
+                            <p>Esse contraste — o que é / o que não é — te ajuda a perceber nuances, metáforas,
+                                perspectivas e até sentimentos escondidos na sua própria escrita. E, no fim, você
+                                transforma uma palavra comum em um pequeno universo pessoal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="jogo" style="display: none;" id="tela3">
+                    <div class="descricao">
+                        <h3>A palavra aleatória é</h3>
+                        <div class="forma-palavra">
+                            <p id="palavraAleatoria"></p>
+                        </div>
+                    </div>
+                    <div class="forma-input">
+                        <div class="coluna1-input">
+                            <div class="ps">
+                                <p id="palavraAleatoria2"></p>
+                                <p> é</p>
+                            </div>
+                            <textarea name="o-que-e" id="eh"></textarea>
+                        </div>
+                        <div class="coluna1-input" style="display: none;" id="coluna2">
+                            <div class="ps">
+                                <p id="palavraAleatoria3"></p>
+                                <p> não é</p>
+                            </div>
+                            <textarea name="nao-e" id="naoEh"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="resultado" style="display: none;" id="tela4">
+                    <div class="forma-resultado">
+                        <h1>Nesses 2 minutos você...</h1>
+                        <div class="resultados">
+                            <div class="forma-resultado-coluna">
+                                <h1>Tempo Criativo</h1>
+                                <div class="forma-palavra-resultado">
+                                    <h6 id="palavrasMinuto"></h6>
+                                </div>
+                                <p>Este indicador mostra quantas palavras você conseguiu produzir durante os dois
+                                    minutos do
+                                    desafio.
+                                    Quanto mais você soltou o fluxo de consciência, maior será seu Tempo Criativo</p>
+                            </div>
+                            <div class="forma-resultado-coluna">
+                                <h1>Medidor de Contraste</h1>
+                                <div class="forma-palavra-resultado">
+                                    <h6 id="palavrasContraste"></h6>
+                                </div>
+                                <p>Aqui analisamos o quanto você explorou diferentes direções para a palavra escolhida.
+                                    Comparamos o que você escreveu no campo “O que a palavra É” com o campo “O que a
+                                    palavra
+                                    NÃO É”</p>
+                            </div>
+                            <div class="forma-resultado-coluna">
+                                <h1>Nível de Expansão da Palavra</h1>
+                                <div class="forma-palavra-resultado">
+                                    <h6 id="ideiasGeradas"></h6>
+                                </div>
+                                <p>Este indicador mostra o quanto sua criatividade se ramificou a partir da palavra
+                                    principal.
+                                    A ideia é medir quantos novos sentidos, imagens ou ideias você adicionou ao conceito
+                                    original</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+<script>
+    let livrosUsuario = [];
+    let livroSelecionado = null;
+
+    function selecionouLivro(select) {
+        const idEscolhido = Number(select.value);
+
+        for (let i = 0; i < livrosUsuario.length; i++) {
+            if (livrosUsuario[i].id === idEscolhido) {
+                livroSelecionado = livrosUsuario[i];
+                break;
+            }
+        }
+
+        console.log("LIVRO SELECIONADO:", livroSelecionado);
+    }
+
+    function mostrarTela(idTela) {
+        const telas = ["tela1", "tela2", "tela3", "tela4"];
+
+        telas.forEach(tela => {
+            document.getElementById(tela).style.display = "none";
+        });
+
+        document.getElementById(idTela).style.display = "flex";
+    }
+
+    function comecar() {
+        mostrarTela("tela2");
+        var idUser = sessionStorage.ID_USUARIO;
+
+        fetch("usuarios/buscarLivrosUsuario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idUserServer: idUser })
+        })
+            .then(async resposta => {
+                console.log("ESTOU NO THEN DO comecar()!");
+
+                const livros = await resposta.json();
+                console.log("LIVROS DO USUÁRIO:", livros);
+
+                preencherSelectLivros(livros);
+            })
+            .catch(err => console.error("Erro geral:", err));
+    }
+
+
+    function sortear() {
+        mostrarTela("tela3");
+        var vetorResenha = vetorizarTexto(livroSelecionado.resenha);
+        let preposicoes = [
+            "a", "ante", "após", "até", "com", "contra", "de", "do", "da", "desde",
+            "em", "entre", "para", "per", "perante", "por", "sem", "sob",
+            "sobre", "trás"
+        ];
+
+        let palavraSorteada = "";
+
+        while (true) {
+            let indice = Math.floor(Math.random() * vetorResenha.length);
+            let palavra = vetorResenha[indice].toLowerCase();
+
+            let ehPreposicao = false;
+
+            for (let i = 0; i < preposicoes.length; i++) {
+                if (palavra === preposicoes[i]) {
+                    ehPreposicao = true;
+                    break;
+                }
+            }
+
+            if (!ehPreposicao) {
+                palavraSorteada = vetorResenha[indice];
+                break;
+            }
+        }
+
+        palavraAleatoria.innerHTML = palavraSorteada;
+        palavraAleatoria2.innerHTML = palavraSorteada;
+        palavraAleatoria3.innerHTML = palavraSorteada;
+
+        setTimeout(() => {
+            document.getElementById("coluna2").style.display = "flex";
+
+            setTimeout(() => {
+                calcularResultados();
+            }, 60000);
+
+        }, 60000);
+    }
+
+    function vetorizarTexto(resenha) {
+        let palavras = [];
+        let palavraAtual = "";
+
+        for (let i = 0; i < resenha.length; i++) {
+            let caractere = resenha[i];
+
+            if (caractere !== " " && caractere !== "\n" && caractere !== "\r") {
+                palavraAtual += caractere;
+            } else {
+                if (palavraAtual.length > 0) {
+                    palavras.push(palavraAtual);
+                    palavraAtual = "";
+                }
+            }
+        }
+
+        if (palavraAtual.length > 0) {
+            palavras.push(palavraAtual);
+        }
+
+        return palavras;
+    }
+
+    function preencherSelectLivros(lista) {
+        livrosUsuario = lista;
+
+        const select = document.getElementById("select");
+        select.innerHTML = `<option value="#">Selecione um livro</option>`;
+
+        for (let i = 0; i < lista.length; i++) {
+            const livro = lista[i];
+            select.innerHTML += `
+        <option value="${livro.id}">${livro.nome}</option>
+        `;
+        }
+    }
+
+    function calcularResultados() {
+        mostrarTela("tela4");
+        var textoEh = eh.value;
+        var textoNaoEh = naoEh.value;
+
+        var vetorEh = vetorizarTexto(textoEh);
+        var vetorNaoEh = vetorizarTexto(textoNaoEh);
+
+        var tempoCriativo = (vetorEh.length + vetorNaoEh.length) / 2;
+        var expansao = vetorEh.length + vetorNaoEh.length;
+        var contraste = 0;
+        if (vetorEh.length > vetorNaoEh.length) {
+            contraste = vetorEh.length - vetorNaoEh.length;
+        } else {
+            contraste = vetorNaoEh.length - vetorEh.length;
+        }
+
+        palavrasMinuto.innerHTML = tempoCriativo.toFixed(0) + " palavras por minuto";
+        palavrasContraste.innerHTML = contraste + " palavras contraste";
+        ideiasGeradas.innerHTML = expansao + " ideias geradas";
+    }
+
+</script>
+
+</html>

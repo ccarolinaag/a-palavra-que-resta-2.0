@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A palavra que resta</title>
+
+    <link rel="icon" href="assets/icons/p.svg" type="image/x-icon">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/styleDashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <ul class="lista-header">
+            <li>
+                <div class="list-content">
+                    <a href="dashboard.html">informações de leitura</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="livros.html">livros</a>
+                </div>
+            <li>
+                <div class="list-content">
+                    <a href="feed.html">feed</a>
+                </div>
+            </li>
+            <li>
+                <div class="list-content">
+                    <a href="game.html">escrita livre</a>
+                </div>
+            </li>
+        </ul>
+        <div class="name-nav">
+            <a href="index.html">
+                <img src="assets/icons/sair.svg" alt="botão sair">
+            </a>
+            </nav>
+    </header>
+    <main>
+        <div class="container1">
+            <div class="apresentacao">
+                <h3>Olá, usuário</h3>
+            </div>
+            <div class="linha1">
+                <div class="forma-grande">
+                    <h4>resenhas feitas</h4>
+                    <p>0</p>
+                </div>
+                <div class="forma-grande">
+                    <h4>livros lidos</h4>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="linha2">
+                <div class="forma-pequena">
+                    <h4>sequência de leitura</h4>
+                    <p>0</p>
+                    <h6>semanas consecutivas</h6>
+                </div>
+                <div class="forma-pequena">
+                    <h4>tempo médio por livro</h4>
+                    <p>0</p>
+                    <h6>dias</h6>
+                </div>
+                <div class="forma-pequena">
+                    <h4>páginas por semana</h4>
+                    <p>0</p>
+                    <h6>páginas</h6>
+                </div>
+            </div>
+            <div class="linha3">
+                <div class="forma-grande">
+                    <h4>quero ler</h4>
+                    <p>0</p>
+                </div>
+                <div class="forma-grande">
+                    <h4>favoritos</h4>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+        <div class="container2">
+            <div class="indicacao-ano">
+                No último ano você...
+            </div>
+            <div class="linha1">
+                <div class="forma-grande">
+                    <h4>leu</h4>
+                    <p>0</p>
+                    <h6>livros</h6>
+                </div>
+                <div class="forma-grande">
+                    <h4>teve recorde de sequência de leitura de</h4>
+                    <p>0</p>
+                    <h6>semanas</h6>
+                </div>
+            </div>
+            <div class="grafico">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    exibir_dashboard()
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function exibir_dashboard(id) {
+        var idUser = sessionStorage.ID_USUARIO;
+
+        // alterarTitulo(id)
+
+        // if (proximaAtualizacao != undefined) {
+        //     clearTimeout(proximaAtualizacao);
+        // }
+
+        fetch(`usuarios/exibir_dashboard`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, id);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, id) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            },
+            {
+                label: 'Temperatura',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                tension: 0.1
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.umidade);
+            dados.datasets[1].data.push(registro.temperatura);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas${idA}`),
+            config
+        );
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+
+</script>
+
+</html>

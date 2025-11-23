@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A palavra que resta</title>
+    <link rel="icon" href="assets/icons/p.svg" type="image/x-icon">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/stylesCadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main class="container">
+        <section class="cadastro-card">
+            <h1>Cadastre-se</h1>
+            <div class="forma-input">
+                <div class="span-input">
+                    <span>nome</span>
+                    <input class="input-padrao" type="text" id="ipt_nome">
+                </div>
+                <div class="span-input">
+                    <span>sobrenome</span>
+                    <input class="input-padrao" type="text" id="ipt_sobrenome">
+                </div>
+                <div class="span-input">
+                    <span>e-mail</span>
+                    <input class="input-padrao" type="email" id="ipt_email">
+                </div>
+                <div class="span-input">
+                    <span>senha</span>
+                    <input class="input-padrao" type="password" id="ipt_senha">
+                </div>
+                <div class="span-input">
+                    <span>confirme sua senha</span>
+                    <input class="input-padrao" type="password" id="ipt_Confsenha">
+                </div>
+                <div class="btn-container">
+                    <button onclick="cadastrar()">Caddastrar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+        // aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = ipt_nome.value;
+        var sobrenomeVar = ipt_sobrenome.value;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+        var confirmacaoSenhaVar = ipt_Confsenha.value;
+
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == "" ||
+            sobrenomeVar == ""
+        ) {
+            alert("Favor preencher todos os campos")
+            return false;
+        } else if (confirmacaoSenhaVar != senhaVar) {
+            alert("As senhas não conferem")
+            return false;
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                sobrenomeServer: sobrenomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...")
+                    setTimeout(() => {
+                        window.location = "login1.html";
+                    }, "0");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+</script>
