@@ -9,7 +9,6 @@ function autenticar(email, senha) {
     return database.executar(instrucaoSql);
 }
 
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, sobrenome, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, sobrenome, email, senha);
 
@@ -41,6 +40,7 @@ WHERE u.id != '${id}';
 function adicionarLivro(nome, autor, numpaginas, editora, imagem, resenha, dtinicio, dttermino, fkusuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
 
+    console.log("iamgemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm: " + imagem)
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
@@ -66,28 +66,28 @@ function buscarLivrosUsuario(id) {
     return database.executar(instrucaoSql);
 }
 
-function exibir_dashboard() {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+function apagarLivro(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function apagarLivro():");
 
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        SELECT l.nome nome_livro, l.autor, l.resenha, u.nome nome_usuario, u.sobrenome
-FROM livro l 
-JOIN usuario u ON l.fkusuario = u.id
-LEFT JOIN quero_ler q ON q.fklivro = l.id
-WHERE u.id != '${id}';
-`;
+    var instrucaoSql = `DELETE FROM livro WHERE id = ${id};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-// criar função nova na model com os atributos que vc passou na controller
+
+function DadosAno(id) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function DadosAno():");
+
+    var instrucaoSql = `SELECT * FROM vw_livros_lidos_por_mes WHERE idUsuario = ${id};`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
     cadastrar,
     livros,
     adicionarLivro,
-    exibir_dashboard,
-    buscarLivrosUsuario
+    buscarLivrosUsuario,
+    apagarLivro,
+    DadosAno
 };

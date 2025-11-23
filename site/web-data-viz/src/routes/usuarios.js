@@ -28,5 +28,11 @@ router.post("/buscarLivrosUsuario", function (req, res) {
     usuarioController.buscarLivrosUsuario(req, res);
 });
 
+router.post("/apagarLivro", function (req, res) {
+    usuarioController.apagarLivro(req, res);
+});
 
+router.post("/buscarDadosAno", function (req, res) {
+    usuarioController.DadosAno(req, res);
+});
 module.exports = router;

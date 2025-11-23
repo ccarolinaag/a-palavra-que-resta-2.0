@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>a palavra que resta</title>
+
+    <link rel="icon" href="assets/icons/p.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/header.css">
@@ -48,15 +50,15 @@
         <div class="capa-livro">
             <div class="forma-livro">
                 <div class="capa-livro">
-                    <img src="assets/memoria-de-ninguem.jpg" alt="">
+                    <img id="img">
                 </div>
             </div>
         </div>
         <div class="informacoes-livro">
             <div class="identificacao">
                 <div class="nome-livro">
-                    <h3>Nome do livro</h3>
-                    <h4>Nome do autor</h4>
+                    <h3 id="nomeLivro"></h3>
+                    <h4 id="nomeAutor"></h4>
                 </div>
             </div>
             <div class="resenha-editar">
@@ -72,34 +74,25 @@
             </div>
             <div class="resenha">
                 <div class="margem-resenha">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas alias quisquam perferendis
-                        numquam magnam provident voluptatibus molestias iste adipisci sapiente libero voluptates,
-                        tempore debitis dolor deleniti voluptatum eaque repellat quos! Lorem ipsum dolor sit amet,
-                        consectetur adipisicing elit. Est illo laborum fugit facilis sequi voluptatem quia sed ex, rem
-                        consequuntur unde labore architecto repudiandae, voluptate eaque, neque eum odio culpa! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit. Laboriosam fugiat labore commodi unde omnis?
-                        Consequuntur est, quasi excepturi quis eos adipisci, quae quisquam, necessitatibus totam autem
-                        maiores ipsam iste iure! Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet vero
-                        possimus aperiam a quasi distinctio laudantium modi eum. Quam eligendi atque, eius laudantium
-                        exercitationem adipisci eos laborum magnam aspernatur dolor?</p>
+                    <p id="resenha"></p>
                 </div>
             </div>
             <div class="indicacoes-livro">
                 <div class="forma-informacoes">
                     <h6>número de páginas</h6>
-                    <p>276</p>
+                    <p id="numpaginas"></p>
                 </div>
                 <div class="forma-informacoes">
                     <h6>editora</h6>
-                    <p>incompleta</p>
+                    <p id="editora"></p>
                 </div>
                 <div class="forma-informacoes">
                     <h6>ínicio da leitura</h6>
-                    <p>27/05/2025</p>
+                    <p id="dtinicio"></p>
                 </div>
                 <div class="forma-informacoes">
                     <h6>término da leitura</h6>
-                    <p>27/06/2025</p>
+                    <p id="dttermino"></p>
                 </div>
             </div>
         </div>
@@ -112,5 +105,46 @@
         </div>
     </main>
 </body>
+
+<script>
+    const livro = JSON.parse(sessionStorage.LIVRO_SELECIONADO);
+    nomeLivro.innerHTML = livro.nome;
+    nomeAutor.innerHTML = livro.autor;
+    img.src = livro.imagem;
+    resenha.innerHTML = livro.resenha;
+    numpaginas.innerHTML = livro.numpaginas;
+    editora.innerHTML = livro.editora;
+    dtinicio.innerHTML = new Date(livro.dtinicio).toLocaleDateString('pt-BR');
+    dttermino.innerHTML = new Date(livro.dttermino).toLocaleDateString('pt-BR');
+
+
+    function deletar() {
+        const confirmar = confirm("Tem certeza que deseja excluir este livro?");
+
+        if (!confirmar) {
+            return; 
+        }
+
+        var idLivro = livro.id;
+
+        fetch("usuarios/apagarLivro", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idLivroServer: idLivro })
+        })
+            .then(async resposta => {
+                console.log("ESTOU NO THEN DO apagarLivvro()!");
+                console.log("resposta:", resposta);
+
+                if (resposta.ok) {
+                    alert("Livro excluído com sucesso!")
+                    sessionStorage.LIVRO_SELECIONADO = undefined;
+                    window.location = "livros.html";
+                }
+            })
+            .catch(err => console.error("Erro geral:", err));
+    }
+
+</script>
 
 </html>

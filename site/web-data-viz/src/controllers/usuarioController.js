@@ -182,11 +182,53 @@ function buscarLivrosUsuario(req, res) {
         );
 }
 
+function apagarLivro(req, res) {
+    var id = req.body.idLivroServer;
+    console.log("cheguei na controller")
+
+    usuarioModel.apagarLivro(id)
+        .then(
+            function (resultado) {
+                console.log(`Resultados: ${JSON.stringify(resultado)}`); 
+                
+                res.status(200).json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao excluir o livro! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function DadosAno(req, res) {
+    var id = req.body.idUserServer;
+    console.log("cheguei na controller")
+
+    usuarioModel.DadosAno(id)
+        .then(
+            function (resultado) {
+                console.log(`Resultados: ${JSON.stringify(resultado)}`); 
+                
+                res.status(200).json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao buscar dados do ano Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     livros,
     adicionarLivro,
     exibir_dashboard,
-    buscarLivrosUsuario
+    buscarLivrosUsuario,
+    apagarLivro,
+    DadosAno
 }

@@ -82,6 +82,7 @@
 
 .botao-adicionar img {
     transition: transform 0.3s ease;
+    height: 45px;
 }
 
 .botao-adicionar:hover img {
@@ -146,4 +147,8 @@
 .forma-botao,
 .botao-adicionar {
     height: 35px;
+}
+
+.clicar {
+    cursor: pointer;
 }

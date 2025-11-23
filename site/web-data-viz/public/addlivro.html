@@ -104,7 +104,8 @@
         var numPaginasVar = Number(ipt_paginas.value);
         var fkUsuarioVar = sessionStorage.ID_USUARIO;
         var resenhaVar = ipt_resenha.value;
-
+        
+        alert(imagemVar)
         if (
             nomeLivroVar == "" ||
             autorVar == "" ||
@@ -136,7 +137,7 @@
                 autor_server: autorVar,
                 nPaginas_server: numPaginasVar,
                 editora_server: editoraVar,
-                imagem_server: imagemVar,
+                capa_server: imagemVar,
                 resenha_server: resenhaVar,
                 dtInicio_server: dtInicioVar,
                 dtTermino_server: dtTerminoVar,
