@@ -268,6 +268,10 @@
             var nomeMes = meses[i];
             var valor = Number(reporte[0][nomeMes]);
 
+            if(nomeMes == "marco") {
+                nomeMes = "Março"
+            }
+
             if (valor > maior) {
                 maior = valor;
                 mesMaior = nomeMes;
@@ -289,8 +293,8 @@
         console.log("Dados do gráfico:", vtMeses);
 
         let labels = [
-            "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
-            "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
         ];
 
         let dados = {
