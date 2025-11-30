@@ -103,7 +103,7 @@
     </main>
 </body>
 
-<script>
+<script>                    
     b_usuario.innerHTML = "Olá, " + sessionStorage.NOME_USUARIO + "!";
     buscarDados();
     buscarDadosAno();
@@ -163,7 +163,7 @@
         let vt_dias = []; // vetor tempo em dias
 
         for (let i = 0; i < livros.length; i++) {
-            let inicio = new Date(livros[i].dtinicio); // "2025-12-17 T03:24:00"
+            let inicio = new Date(livros[i].dtinicio); // "2025-12-17 T03:24:00"  semana, dia, mês, ano, fuso horário e hora
             let fim = new Date(livros[i].dttermino);
 
             let diferencaMiseg = fim - inicio;
@@ -219,25 +219,40 @@
     function calcularKPISano(reporte) {
         var vt_Dados_Meses = [];
 
-        vt_Dados_Meses[0] = Number(reporte[0].janeiro);
-        vt_Dados_Meses[1] = Number(reporte[0].fevereiro);
-        vt_Dados_Meses[2] = Number(reporte[0].marco);
-        vt_Dados_Meses[3] = Number(reporte[0].abril);
-        vt_Dados_Meses[4] = Number(reporte[0].maio);
-        vt_Dados_Meses[5] = Number(reporte[0].junho);
-        vt_Dados_Meses[6] = Number(reporte[0].julho);
-        vt_Dados_Meses[7] = Number(reporte[0].agosto);
-        vt_Dados_Meses[8] = Number(reporte[0].setembro);
-        vt_Dados_Meses[9] = Number(reporte[0].outubro);
-        vt_Dados_Meses[10] = Number(reporte[0].novembro);
-        vt_Dados_Meses[11] = Number(reporte[0].dezembro);
+        if (reporte.length <= 0) {
+            vt_Dados_Meses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+            kpi_lidosAno.innerHTML = 0;
+
+            
+            maiorMes.innerHTML = "nenhum";
+
+            
+            plotarGrafico(vt_Dados_Meses);
+
+            return; 
+        }
+        else {
+            vt_Dados_Meses[0] = Number(reporte[0].janeiro);
+            vt_Dados_Meses[1] = Number(reporte[0].fevereiro);
+            vt_Dados_Meses[2] = Number(reporte[0].marco);
+            vt_Dados_Meses[3] = Number(reporte[0].abril);
+            vt_Dados_Meses[4] = Number(reporte[0].maio);
+            vt_Dados_Meses[5] = Number(reporte[0].junho);
+            vt_Dados_Meses[6] = Number(reporte[0].julho);
+            vt_Dados_Meses[7] = Number(reporte[0].agosto);
+            vt_Dados_Meses[8] = Number(reporte[0].setembro);
+            vt_Dados_Meses[9] = Number(reporte[0].outubro);
+            vt_Dados_Meses[10] = Number(reporte[0].novembro);
+            vt_Dados_Meses[11] = Number(reporte[0].dezembro);
+        }
+
+        console.log("REPORTE:", reporte[0]);
 
         var soma = 0;
         for (i = 0; i < vt_Dados_Meses.length; i++) {
             soma += vt_Dados_Meses[i];
         }
-
         kpi_lidosAno.innerHTML = soma;
 
         var maior = 0;
@@ -257,10 +272,13 @@
                 maior = valor;
                 mesMaior = nomeMes;
             }
-
         }
 
-        maiorMes.innerHTML = mesMaior;
+        if (maior === 0) {
+            maiorMes.innerHTML = "nenhum";
+        } else {
+            maiorMes.innerHTML = mesMaior;
+        }
 
         plotarGrafico(vt_Dados_Meses);
     }
@@ -279,7 +297,7 @@
             labels: labels,
             datasets: [{
                 label: 'Livros lidos',
-                data: [],           
+                data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.4)',

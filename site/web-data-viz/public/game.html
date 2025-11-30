@@ -204,19 +204,6 @@
     let livrosUsuario = [];
     let livroSelecionado = null;
 
-    function selecionouLivro(select) {
-        const idEscolhido = Number(select.value);
-
-        for (let i = 0; i < livrosUsuario.length; i++) {
-            if (livrosUsuario[i].id === idEscolhido) {
-                livroSelecionado = livrosUsuario[i];
-                break;
-            }
-        }
-
-        console.log("LIVRO SELECIONADO:", livroSelecionado);
-    }
-
     function mostrarTela(idTela) {
         const telas = ["tela1", "tela2", "tela3", "tela4"];
 
@@ -228,7 +215,7 @@
     }
 
     function comecar() {
-        mostrarTela("tela2");
+        mostrarTela("tela2"); 
         var idUser = sessionStorage.ID_USUARIO;
 
         fetch("usuarios/buscarLivrosUsuario", {
@@ -247,6 +234,32 @@
             .catch(err => console.error("Erro geral:", err));
     }
 
+    function preencherSelectLivros(lista) {
+        livrosUsuario = lista;
+
+        const select = document.getElementById("select");
+        select.innerHTML = `<option value="#">Selecione um livro</option>`;
+
+        for (let i = 0; i < lista.length; i++) {
+            const livro = lista[i];
+            select.innerHTML += `
+        <option value="${livro.id}">${livro.nome}</option>
+        `;
+        }
+    }
+
+    function selecionouLivro(select) {
+        const idEscolhido = Number(select.value);
+
+        for (let i = 0; i < livrosUsuario.length; i++) {
+            if (livrosUsuario[i].id === idEscolhido) {
+                livroSelecionado = livrosUsuario[i];
+                break;
+            }
+        }
+
+        console.log("LIVRO SELECIONADO:", livroSelecionado);
+    }
 
     function sortear() {
         mostrarTela("tela3");
@@ -287,9 +300,9 @@
 
             setTimeout(() => {
                 calcularResultados();
-            }, 60000);
+            }, 6000);
 
-        }, 60000);
+        }, 6000);
     }
 
     function vetorizarTexto(resenha) {
@@ -314,20 +327,6 @@
         }
 
         return palavras;
-    }
-
-    function preencherSelectLivros(lista) {
-        livrosUsuario = lista;
-
-        const select = document.getElementById("select");
-        select.innerHTML = `<option value="#">Selecione um livro</option>`;
-
-        for (let i = 0; i < lista.length; i++) {
-            const livro = lista[i];
-            select.innerHTML += `
-        <option value="${livro.id}">${livro.nome}</option>
-        `;
-        }
     }
 
     function calcularResultados() {
