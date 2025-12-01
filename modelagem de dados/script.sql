@@ -80,4 +80,4 @@ WHERE YEAR(l.dttermino) = YEAR(CURRENT_DATE())
 GROUP BY l.fkusuario, YEAR(l.dttermino);
 
 -- VIEW utilizada na API 
-SELECT * FROM vw_livros_lidos_por_mes WHERE idUsuario = ${id};`
+SELECT * FROM vw_livros_lidos_por_mes WHERE idUsuario = 1;
