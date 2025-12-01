@@ -34,6 +34,14 @@ FOREIGN KEY (fkusuario) REFERENCES usuario(id),
 FOREIGN KEY (fklivro) REFERENCES livro(id)
 );
 
+CREATE TABLE perfil_usuario (
+    idPerfil_usuario INT PRIMARY KEY,
+    bio TEXT,
+    data_nascimento DATE,
+    CONSTRAINT fk_perfil_usuario
+	FOREIGN KEY (idPerfil_usuario) REFERENCES usuario(id)
+);
+
 
 -- SELECT auntenticar 
 SELECT id, nome, email FROM usuario WHERE email = '${email}' AND senha = '${senha}';
