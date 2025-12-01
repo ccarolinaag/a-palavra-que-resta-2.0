@@ -45,6 +45,11 @@ main {
     font-size: 50px;
 }
 
+.forma-grande h6 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
 .forma-grande h4 {
     color: #4C7D6B;
     font-weight: lighter;
@@ -130,6 +135,13 @@ main {
     height: 62%;
     width: 100%;
     justify-content: center;
+    gap: 2%;
+}
+
+.grafico h6 {
+    margin: 22px;
+    font-size: 26px;
+    font-weight: 500;
 }
 
 .container1 .linha1 .forma-grande {
